@@ -1,0 +1,9 @@
+.characterCards {
+    border: solid 1px purple;
+    padding: 20px 5px 20px 5px;
+    text-align: center;
+    width: 260px;
+    height: 100%;
+    float: left;
+    margin: 10px;
+}
