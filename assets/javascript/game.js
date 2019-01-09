@@ -23,6 +23,9 @@ var spike = new Character("Spike", 100, 12, 12, "assets/images/spike.jpg");
 // i put all the players in an array so it is easier to acces them
 var players = [buffy, willow, giles, spike];
 
+// this is an array that will hold the cards for each char
+var cardsOnScreen = [];
+
 // this is me attempting to create a card then add it to the html
 // var buffyCard = $("<div>");
 
@@ -64,6 +67,7 @@ for (var i=0; i<players.length; i++)
     //<img src="players[i].pic">
     //<br>players[i].hp</button>
     $("#allCharacters").append(charCard);
+    cardsOnScreen.push(charCard);
     //charCard apperars on the allCharacters div
 }
 
@@ -79,14 +83,31 @@ var secondChoice = false;
 
 //this is a function that allows you to choose your player:
 function pickPlayer(x){
+    // console.log(cardsOnScreen);
     if (secondChoice === false){
         mainChar = mainChar + x.id;
         console.log(mainChar);
-        $("#yourCharacter").text(x);
+        //add card to yourCharacter div
+        $("#yourCharacter").append(x);
+
+        //call function to move other cards
+        moveEnemyCards(mainChar);
         secondChoice = true;
     } else {
         defender = defender + x.id;
         $("#defender").append(x);
+    }
+}
+
+// this function is executed once the player picks their
+// main character. it moves all other cards to the 'enemies 
+// available' div
+function moveEnemyCards(mc){
+    for (var j = 0; j < cardsOnScreen.length; j++){
+        // console.log(j+": "+cardsOnScreen[j].attr('id'));
+        if (!(cardsOnScreen[j].attr('id') == mc)){
+            $("#enemiesAvailable").append(cardsOnScreen[j]);
+        }
     }
 }
 

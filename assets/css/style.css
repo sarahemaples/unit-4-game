@@ -2,8 +2,16 @@
     padding: 10px;
 }
 
+/* #yourCharacter,
+#enemiesAvailable,
+#fightSection,
+#defender {
+    height: 300px;
+} */
+
 #allCharacters {
-    height: auto;
+    width: fit-content;
+    height: 350px;
 }
 
 .characterCards {
