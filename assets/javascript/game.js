@@ -80,18 +80,20 @@ var secondChoice = false;
 //this is a function that allows you to choose your player:
 function pickPlayer(x){
     if (secondChoice === false){
-        mainChar = mainChar + x.currentTarget.id;
-        $("#yourCharacter").append("<br>" + mainChar);
+        mainChar = mainChar + x.id;
+        console.log(mainChar);
+        $("#yourCharacter").text(x);
         secondChoice = true;
     } else {
-        defender = defender + x.currentTarget.id;
-        $("#defender").append("<br>" + defender);
+        defender = defender + x.id;
+        $("#defender").append(x);
     }
 }
 
 //on click function which calls the pickPlayer
 $(".characterCards").on("click", function(e){
-    pickPlayer(e);
+    pickPlayer(this);
+    // console.log(this);
 });
 
 //on click for the attack button that calls the attack function
