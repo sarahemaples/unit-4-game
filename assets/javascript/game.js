@@ -12,7 +12,6 @@ function Character(firstName, health, attackPower, counterPower, srcImg)
     this.attack = attackPower;
     this.counterAttack = counterPower;
     this.pic = srcImg;
-
 }
 // creating the characters we will use
 var buffy = new Character("Buffy", 150, 10, 15, "assets/images/buffy.png");
@@ -69,22 +68,34 @@ for (var i=0; i<players.length; i++)
 }
 
 //on click stuff!
+// similar to our jquery calculator
+// first i will initialize each variable as an empty string
 
-var defender;
+var mainChar = '';
+var defender='';
+//here is a lil boolean so i dont keep overriding the main
+//once another card is clicked
+var secondChoice = false;
+
 //this is a function that allows you to choose your player:
-function pickPlayer(){
-    alert('pick your player!');
-    $(".cardButton").on('click', function()
-    {
-        $("#yourCharacter").append($(this));
-        $(this).addClass('mainCharacter');
-        return $(this);
-    });
+function pickPlayer(x){
+    if (secondChoice === false){
+        mainChar = mainChar + x.currentTarget.id;
+        $("#yourCharacter").append("<br>" + mainChar);
+        secondChoice = true;
+    } else {
+        defender = defender + x.currentTarget.id;
+        $("#defender").append("<br>" + defender);
+    }
 }
 
-var mainChar = pickPlayer();
-console.log(mainChar);
-//console.log('your character still is: '+mainChar);
+//on click function which calls the pickPlayer
+$(".characterCards").on("click", function(e){
+    pickPlayer(e);
+});
+
+//on click for the attack button that calls the attack function
+
 
 });
 
