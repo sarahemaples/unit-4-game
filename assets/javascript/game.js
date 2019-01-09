@@ -89,6 +89,7 @@ function pickPlayer(x){
         console.log(mainChar);
         //add card to yourCharacter div
         $("#allCharacters").hide();
+        $("#yourCharacter").height(200);
         $("#yourCharacter").append(x);
 
         //call function to move other cards
@@ -96,6 +97,7 @@ function pickPlayer(x){
         secondChoice = true;
     } else {
         defender = defender + x.id;
+        $("#defender").height(200);
         $("#defender").append(x);
     }
 }
@@ -104,6 +106,7 @@ function pickPlayer(x){
 // main character. it moves all other cards to the 'enemies 
 // available' div
 function moveEnemyCards(mc){
+    $("#enemiesAvailable").height(200);
     for (var j = 0; j < cardsOnScreen.length; j++){
         // console.log(j+": "+cardsOnScreen[j].attr('id'));
         if (!(cardsOnScreen[j].attr('id') == mc)){
