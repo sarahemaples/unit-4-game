@@ -88,6 +88,7 @@ function pickPlayer(x){
         mainChar = mainChar + x.id;
         console.log(mainChar);
         //add card to yourCharacter div
+        $("#allCharacters").hide();
         $("#yourCharacter").append(x);
 
         //call function to move other cards
