@@ -67,7 +67,8 @@ function createCards(){
         charCard.append(cardImg)
         //<button class="characterCards cardButton" id=players[i].name>players[i].name<br>
         //<img src="players[i].pic"></button>
-        charCard.append('<br>'+players[i].hp);
+        var divId = players[i].name+"HP";
+        charCard.append('<div id='+divId+'>'+players[i].hp);
         //<button class="characterCards cardButton" id=players[i].name>players[i].name<br>
         //<img src="players[i].pic">
         //<br>players[i].hp</button>
@@ -159,6 +160,9 @@ function attack(mc, de){
 //FIRST we need to subtract the main attack from the defender hp
     de.hp = de.hp - mc.attack;
     console.log(de.name+" new hp: "+de.hp);
+    //update display
+    var defDivId = '#'+de.name+'HP';
+    $(defDivId).text(de.hp);
     //if the defender is defeated we hide their card and prompt player
     //to pick a new defender
     if (de.hp <= 0){
@@ -171,6 +175,8 @@ function attack(mc, de){
     //and if we kill defender they dont attack main
     if (de.hp > 0){
         mc.hp = mc.hp - de.counterAttack;
+        var mainDivId = '#'+mc.name+'HP';
+        $(mainDivId).text(mc.hp);
     }
     console.log(mc.name+" new hp: "+mc.hp);
     //call the function to update our main characters attack
