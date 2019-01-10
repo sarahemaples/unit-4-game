@@ -106,7 +106,8 @@ function pickPlayer(x){
         moveEnemyCards(mainChar);
         secondChoice = true;
     } else {
-        defender = defender + x.id;
+        defender = x.id;
+        console.log(defender);
         $("#defender").height(200);
         $("#defender").append(x);
     }
@@ -130,8 +131,8 @@ function moveEnemyCards(mc){
 // data we need then call attack() else it just calls attack()
 function getPlayerInfo(mc, de){
     if (firstAttack){
-        console.log("main: "+mc.toLowerCase());
-        console.log("defender: "+de.toLowerCase());
+        // console.log("main: "+mc.toLowerCase());
+        // console.log("defender: "+de.toLowerCase());
     //first i want to grab the actual objects and not the cards
         for (var k=0; k<players.length; k++){
             if (players[k].name == mc){
@@ -168,6 +169,7 @@ function attack(mc, de){
     if (de.hp <= 0){
         var cardId = "#"+de.name;
         $(cardId).hide();
+        firstAttack = true;
         alert('you have defeated '+ de.name+'! Pick a new defender');
     }
 
