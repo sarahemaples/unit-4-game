@@ -159,13 +159,20 @@ function attack(mc, de){
 //FIRST we need to subtract the main attack from the defender hp
     de.hp = de.hp - mc.attack;
     console.log(de.name+" new hp: "+de.hp);
+    //if the defender is defeated we hide their card and prompt player
+    //to pick a new defender
+    if (de.hp <= 0){
+        var cardId = "#"+de.name;
+        $(cardId).hide();
+        alert('you have defeated '+ de.name+'! Pick a new defender');
+    }
 
 //next we need to subtract the defend attack from main hp
     //and if we kill defender they dont attack main
     if (de.hp > 0){
         mc.hp = mc.hp - de.counterAttack;
-        console.log(mc.name+" new hp: "+mc.hp);
     }
+    console.log(mc.name+" new hp: "+mc.hp);
     //call the function to update our main characters attack
     updateMainCharAttack(mc);
 }
