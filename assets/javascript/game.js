@@ -160,6 +160,7 @@ function attack(mc, de){
 
 //FIRST we need to subtract the main attack from the defender hp
     de.hp = de.hp - mc.attack;
+    $("#youAttacked").text("You attacked "+de.name+" for "+mc.attack+" damage!");
     console.log(de.name+" new hp: "+de.hp);
     //update display
     var defDivId = '#'+de.name+'HP';
@@ -178,6 +179,7 @@ function attack(mc, de){
     if (de.hp > 0){
         mc.hp = mc.hp - de.counterAttack;
         var mainDivId = '#'+mc.name+'HP';
+        $("#theyAttacked").text(de.name+" attacked you for "+de.attack+" damage!");
         $(mainDivId).text(mc.hp);
     }
     console.log(mc.name+" new hp: "+mc.hp);
