@@ -14,70 +14,93 @@ function Character(firstName, health, attackPower, counterPower, srcImg, updated
     this.pic = srcImg;
     this.attack = updatedAttack;
 }
-// creating the characters we will use
-var buffy = new Character("Buffy", 150, 10, 15, "assets/images/buffy.png", 10);
-var willow = new Character("Willow", 140, 15, 10, "assets/images/darkWillow.png", 15);
-var giles = new Character("Giles", 170, 4, 10, "assets/images/giles.jpg", 4);
-var spike = new Character("Spike", 100, 12, 12, "assets/images/spike.jpg", 12);
 
-//console.log(buffy.attack);
-// i put all the players in an array so it is easier to acces them
-var players = [buffy, willow, giles, spike];
+    // creating the characters we will use
+    var buffy = new Character("Buffy", 150, 10, 15, "assets/images/buffy.png", 10);
+    var willow = new Character("Willow", 140, 15, 10, "assets/images/darkWillow.png", 15);
+    var giles = new Character("Giles", 170, 4, 10, "assets/images/giles.jpg", 4);
+    var spike = new Character("Spike", 100, 12, 12, "assets/images/spike.jpg", 12);
 
-// this is an array that will hold the cards for each char
-var cardsOnScreen = [];
+    //console.log(buffy.attack);
+    // i put all the players in an array so it is easier to acces them
+    var players = [buffy, willow, giles, spike];
 
-// this is me attempting to create a card then add it to the html
-// var buffyCard = $("<div>");
+    // this is an array that will hold the cards for each char
+    var cardsOnScreen = [];
 
-// buffyCard.addClass("characterCards");
-// buffyCard.text(buffy.name);
 
-// var buffyCardImg = $("<img />");
-// buffyCardImg.attr('src', buffy.pic);
-// buffyCard.append('<br>');
-// buffyCard.append(buffyCardImg);
-// buffyCard.append('<br>');
-// buffyCard.append(buffy.hp);
+function newGame(){
+    $("#restartBtn").hide();
+    $("#allCharacters").show();
 
-// $("#allCharacters").append(buffyCard);
+    secondChoice = false
+    firstAttack = true
+    //resetting everyone's attack and hp back to their original values
+    buffy.hp = 150;
+    buffy.attack = 10;
 
-// okay now that I hardcoded that shit lets try to make a loop 
-// for the rest
+    willow.hp = 140;
+    willow.attack = 15;
 
-//this function creates all the cards and appends them to the 
-//allCharacters div when the page loads
-function createCards(){
-    for (var i=0; i<players.length; i++)
-    {
-        console.log(players[i]);
-        var charCard = $("<button>");
-        //<button></button>
-        charCard.addClass("characterCards cardButton");
-        //<button class="characterCards cardButton"></button>
-        charCard.attr('id', players[i].name);
-        //<button class="characterCards cardButton" id=players[i].name></button>
-        charCard.append(players[i].name+'<br>');
-        //<button class="characterCards cardButton" id=players[i].name>players[i].name<br></button>
-        
-        var cardImg = $("<img />");
-        //<img>
-        cardImg.attr('src', players[i].pic);
-        //<img src="players[i].pic">
-        charCard.append(cardImg)
-        //<button class="characterCards cardButton" id=players[i].name>players[i].name<br>
-        //<img src="players[i].pic"></button>
-        var divId = players[i].name+"HP";
-        charCard.append('<div id='+divId+'>'+players[i].hp);
-        //<button class="characterCards cardButton" id=players[i].name>players[i].name<br>
-        //<img src="players[i].pic">
-        //<br>players[i].hp</button>
-        $("#allCharacters").append(charCard);
-        cardsOnScreen.push(charCard);
-        //charCard apperars on the allCharacters div
+    giles.hp = 170;
+    giles.attack = 4;
+
+    spike.hp = 100;
+    spike.attack = 12;
+
+    //resetting the screen
+    $("#yourCharacter").text("Your Character:")
+    $("#yourCharacter").append("<br>");
+    $("#yourCharacter").prepend("<br>");
+
+    $("#enemiesAvailable").text("Enemies Available to Attack");
+    $("#enemiesAvailable").append("<br>");
+    $("#enemiesAvailable").prepend("<br>");
+
+    $("#defender").text("Defender");
+    $("#defender").append("<br>");
+    $("#defender").prepend("<br>");
+
+    $("#youAttacked").text('');
+    $("#theyAttacked").text('');
+    $("#restartBrn").empty();
+
+    //this function creates all the cards and appends them to the 
+    //allCharacters div when the page loads
+    function createCards(){
+        for (var i=0; i<players.length; i++)
+        {
+            console.log(players[i]);
+            var charCard = $("<button>");
+            //<button></button>
+            charCard.addClass("characterCards cardButton");
+            //<button class="characterCards cardButton"></button>
+            charCard.attr('id', players[i].name);
+            //<button class="characterCards cardButton" id=players[i].name></button>
+            charCard.append(players[i].name+'<br>');
+            //<button class="characterCards cardButton" id=players[i].name>players[i].name<br></button>
+            
+            var cardImg = $("<img />");
+            //<img>
+            cardImg.attr('src', players[i].pic);
+            //<img src="players[i].pic">
+            charCard.append(cardImg)
+            //<button class="characterCards cardButton" id=players[i].name>players[i].name<br>
+            //<img src="players[i].pic"></button>
+            var divId = players[i].name+"HP";
+            charCard.append('<div id='+divId+'>'+players[i].hp);
+            //<button class="characterCards cardButton" id=players[i].name>players[i].name<br>
+            //<img src="players[i].pic">
+            //<br>players[i].hp</button>
+            $("#allCharacters").append(charCard);
+            cardsOnScreen.push(charCard);
+            //charCard apperars on the allCharacters div
+        }
     }
+    createCards();
+
 }
-createCards();
+newGame();
 
 //on click stuff!
 // similar to our jquery calculator
@@ -171,7 +194,16 @@ function attack(mc, de){
         var cardId = "#"+de.name;
         $(cardId).hide();
         firstAttack = true;
-        alert('you have defeated '+ de.name+'! Pick a new defender');
+        $("#theyAttacked").text("Pick new defender");
+        // alert('you have defeated '+ de.name+'! Pick a new defender');
+        cardsOnScreen.pop()
+        if (cardsOnScreen.length == 1){
+            if (de.hp <= 0){
+                $("#theyAttacked").empty();
+                $("#youAttacked").text("You defeated all enemies!")
+                $("#restartBtn").show();
+            }
+        }
     }
 
 //next we need to subtract the defend attack from main hp
@@ -179,8 +211,14 @@ function attack(mc, de){
     if (de.hp > 0){
         mc.hp = mc.hp - de.counterAttack;
         var mainDivId = '#'+mc.name+'HP';
-        $("#theyAttacked").text(de.name+" attacked you for "+de.attack+" damage!");
+        $("#theyAttacked").text(de.name+" attacked you for "+de.counterAttack+" damage!");
         $(mainDivId).text(mc.hp);
+        if (mc.hp <= 0){
+            $("#yourCharacter").text("Your Character:");
+            $("#theyAttacked").empty();
+            $("#youAttacked").text(de.name+" defeated you!")
+            $("#restartBtn").show();
+        }
     }
     console.log(mc.name+" new hp: "+mc.hp);
     //call the function to update our main characters attack
@@ -204,6 +242,11 @@ $(".characterCards").on("click", function(e){
 $("#attackBtn").on("click", function(e){
     getPlayerInfo(mainChar, defender);
 });
+
+//on click for the restart btn
+$("#restart").on("click", function (){
+    newGame();
+})
 
 });
 

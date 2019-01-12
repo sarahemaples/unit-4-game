@@ -2,6 +2,13 @@
     padding: 10px;
     /* width: 960px; */
     margin: 0 auto;
+
+}
+
+body{
+    background: url('../images/buffyBackground.jpg');
+    margin-left: 50px;
+    color: aliceblue;
 }
 /* 
 #yourCharacter,
@@ -14,7 +21,6 @@
 #allCharacters {
     width: fit-content;
     height: 175px;
-     
 }
 
 .characterCards {
