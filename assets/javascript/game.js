@@ -33,10 +33,12 @@ function Character(firstName, health, attackPower, counterPower, srcImg, updated
 function newGame(){
     // $("#restartBtn").hide();
     $("#allCharacters").show();
+    console.log('new game function executed');
 
     secondChoice = false
     firstAttack = true
     cardsOnScreen = [];
+
     //resetting everyone's attack and hp back to their original values
     buffy.hp = 150;
     buffy.attack = 10;
@@ -49,6 +51,8 @@ function newGame(){
 
     spike.hp = 100;
     spike.attack = 12;
+
+    createCards();
 
     //resetting the screen
     $("#yourCharacter").text("Your Character:")
@@ -65,10 +69,8 @@ function newGame(){
 
     $("#youAttacked").text('');
     $("#theyAttacked").text('');
-    $("#restartBrn").empty();
-
 }
-newGame();
+
 
 //this function creates all the cards and appends them to the 
 //allCharacters div when the page loads
@@ -150,6 +152,7 @@ function moveEnemyCards(mc){
         // console.log(j+": "+cardsOnScreen[j].attr('id'));
         if (!(cardsOnScreen[j].attr('id') == mc)){
             $("#enemiesAvailable").append(cardsOnScreen[j]);
+            console.log('adding enemies');
         }
     }
 }
@@ -208,6 +211,7 @@ function attack(mc, de){
                 $("#theyAttacked").empty();
                 $("#youAttacked").text("You defeated all enemies!")
                 $("#restartBtn").show();
+                console.log(cardsOnScreen);
             }
         }
     }
@@ -253,6 +257,7 @@ $("#attackBtn").on("click", function(e){
 //on click for the restart btn
 $("#restart").on("click", function (){
     newGame();
+    console.log('restart btn clicked');
 })
 
 });
