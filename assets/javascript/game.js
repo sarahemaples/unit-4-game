@@ -14,7 +14,7 @@ function Character(firstName, health, attackPower, counterPower, srcImg, updated
     this.pic = srcImg;
     this.attack = updatedAttack;
 }
-
+//here i will declare all variables: 
     // creating the characters we will use
     var buffy = new Character("Buffy", 150, 10, 15, "assets/images/buffy.png", 10);
     var willow = new Character("Willow", 140, 15, 10, "assets/images/darkWillow.png", 15);
@@ -27,20 +27,28 @@ function Character(firstName, health, attackPower, counterPower, srcImg, updated
 
     // this is an array that will hold the cards for each char
     var cardsOnScreen = [];
-    var count;
+    var count, charCard, cardImg, divId, defDivId, cardId, mainDivId = null;
+    var mainChar = '';
+    var defender='';
+    //here is a lil boolean so i dont keep overriding the main
+    //once another card is clicked
+    var secondChoice = false;
+    //another boolean for the attack button
+    var firstAttack = true;
 
 
 function newGame(){
-    $("#restartBtn").hide();
-    $("#allCharacters").empty();
-    $("#allCharacters").show();
-    console.log('new game function executed');
 
-    secondChoice = false
-    firstAttack = true
+//resetting variables
     cardsOnScreen = [];
+    count, charCard, cardImg, divId, defDivId, cardId, mainDivId = null;
     mainChar = '';
     defender='';
+    //here is a lil boolean so i dont keep overriding the main
+    //once another card is clicked
+    secondChoice = false;
+    //another boolean for the attack button
+    firstAttack = true;
 
     //resetting everyone's attack and hp back to their original values
     buffy.hp = 150;
@@ -54,8 +62,6 @@ function newGame(){
 
     spike.hp = 100;
     spike.attack = 12;
-
-    createCards();
 
     //resetting the screen
     $("#yourCharacter").text("Your Character:")
@@ -72,6 +78,13 @@ function newGame(){
 
     $("#youAttacked").text('');
     $("#theyAttacked").text('');
+
+    $("#restartBtn").hide();
+    // $("#allCharacters").empty();
+    $("#allCharacters").show();
+    console.log('new game function executed');
+
+    createCards();
 }
 
 // //reset cards function that resets hp values displayed
@@ -93,7 +106,7 @@ function createCards(){
     for (var i=0; i<players.length; i++)
     {
         console.log(players[i]);
-        var charCard = $("<div>");
+        charCard = $("<div>");
         //<button></button>
         charCard.addClass("characterCards");
         //<button class="characterCards"></button>
@@ -102,14 +115,14 @@ function createCards(){
         charCard.append(players[i].name+'<br>');
         //<button class="characterCards" id=players[i].name>players[i].name<br></button>
         
-        var cardImg = $("<img />");
+        cardImg = $("<img />");
         //<img>
         cardImg.attr('src', players[i].pic);
         //<img src="players[i].pic">
         charCard.append(cardImg)
         //<button class="characterCards" id=players[i].name>players[i].name<br>
         //<img src="players[i].pic"></button>
-        var divId = players[i].name+"HP";
+        divId = players[i].name+"HP";
         charCard.append('<div id='+divId+'>'+players[i].hp);
         //<button class="characterCards" id=players[i].name>players[i].name<br>
         //<img src="players[i].pic">
@@ -123,18 +136,6 @@ function createCards(){
 }
 createCards();
 
-
-//on click stuff!
-// similar to our jquery calculator
-// first i will initialize each variable as an empty string
-
-var mainChar = '';
-var defender='';
-//here is a lil boolean so i dont keep overriding the main
-//once another card is clicked
-var secondChoice = false;
-//another boolean for the attack button
-var firstAttack = true;
 
 //this is a function that allows you to choose your player:
 function pickPlayer(x){
@@ -209,12 +210,12 @@ function attack(mc, de){
     $("#youAttacked").text("You attacked "+de.name+" for "+mc.attack+" damage!");
     console.log(de.name+" new hp: "+de.hp);
     //update display
-    var defDivId = '#'+de.name+'HP';
+    defDivId = '#'+de.name+'HP';
     $(defDivId).text(de.hp);
     //if the defender is defeated we hide their card and prompt player
     //to pick a new defender
     if (de.hp <= 0){
-        var cardId = "#"+de.name;
+        cardId = "#"+de.name;
         $(cardId).hide();
         firstAttack = true;
         $("#theyAttacked").text("Pick new defender");
@@ -235,7 +236,7 @@ function attack(mc, de){
     //and if we kill defender they dont attack main
     if (de.hp > 0){
         mc.hp = mc.hp - de.counterAttack;
-        var mainDivId = '#'+mc.name+'HP';
+        mainDivId = '#'+mc.name+'HP';
         $("#theyAttacked").text(de.name+" attacked you for "+de.counterAttack+" damage!");
         $(mainDivId).text(mc.hp);
         if (mc.hp <= 0){
@@ -258,9 +259,9 @@ function updateMainCharAttack(mc){
 }
 
 //on click function which calls the pickPlayer
-$(".characterCards").on("click", function(e){
+$(".characterCards").on("click",  function(e){
     console.log('clicked!');
-    // console.log(e.target);
+    console.log(e);
     pickPlayer(e.currentTarget);
 });
 
