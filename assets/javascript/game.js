@@ -31,13 +31,16 @@ function Character(firstName, health, attackPower, counterPower, srcImg, updated
 
 
 function newGame(){
-    // $("#restartBtn").hide();
+    $("#restartBtn").hide();
+    $("#allCharacters").empty();
     $("#allCharacters").show();
     console.log('new game function executed');
 
     secondChoice = false
     firstAttack = true
     cardsOnScreen = [];
+    mainChar = '';
+    defender='';
 
     //resetting everyone's attack and hp back to their original values
     buffy.hp = 150;
@@ -71,6 +74,18 @@ function newGame(){
     $("#theyAttacked").text('');
 }
 
+// //reset cards function that resets hp values displayed
+// function resetCards(){
+//     console.log(cardsOnScreen);
+//     // console.log("reset Cards fcn called"); 
+//     // console.log(cardsOnScreen.length); 
+//     for (var a = 0; a<cardsOnScreen.length; a++){
+//         $("#"+players[a].name+"HP").text(players[a].hp);
+//         console.log(a+": "+cardsOnScreen[a].valueOf());
+//         $("#allCharacters").append(cardsOnScreen[a].valueOf());
+//     }
+// }
+
 
 //this function creates all the cards and appends them to the 
 //allCharacters div when the page loads
@@ -78,25 +93,25 @@ function createCards(){
     for (var i=0; i<players.length; i++)
     {
         console.log(players[i]);
-        var charCard = $("<button>");
+        var charCard = $("<div>");
         //<button></button>
-        charCard.addClass("characterCards cardButton");
-        //<button class="characterCards cardButton"></button>
+        charCard.addClass("characterCards");
+        //<button class="characterCards"></button>
         charCard.attr('id', players[i].name);
-        //<button class="characterCards cardButton" id=players[i].name></button>
+        //<button class="characterCards" id=players[i].name></button>
         charCard.append(players[i].name+'<br>');
-        //<button class="characterCards cardButton" id=players[i].name>players[i].name<br></button>
+        //<button class="characterCards" id=players[i].name>players[i].name<br></button>
         
         var cardImg = $("<img />");
         //<img>
         cardImg.attr('src', players[i].pic);
         //<img src="players[i].pic">
         charCard.append(cardImg)
-        //<button class="characterCards cardButton" id=players[i].name>players[i].name<br>
+        //<button class="characterCards" id=players[i].name>players[i].name<br>
         //<img src="players[i].pic"></button>
         var divId = players[i].name+"HP";
         charCard.append('<div id='+divId+'>'+players[i].hp);
-        //<button class="characterCards cardButton" id=players[i].name>players[i].name<br>
+        //<button class="characterCards" id=players[i].name>players[i].name<br>
         //<img src="players[i].pic">
         //<br>players[i].hp</button>
         $("#allCharacters").append(charCard);
@@ -125,7 +140,7 @@ var firstAttack = true;
 function pickPlayer(x){
     // console.log(cardsOnScreen);
     if (secondChoice === false){
-        mainChar = mainChar + x.id;
+        mainChar = x.id;
         console.log(mainChar);
         //add card to yourCharacter div
         $("#allCharacters").hide();
@@ -244,9 +259,9 @@ function updateMainCharAttack(mc){
 
 //on click function which calls the pickPlayer
 $(".characterCards").on("click", function(e){
-    pickPlayer(this);
     console.log('clicked!');
-    // console.log(this);
+    // console.log(e.target);
+    pickPlayer(e.currentTarget);
 });
 
 //on click for the attack button that calls the attack function
