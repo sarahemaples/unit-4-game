@@ -18,6 +18,10 @@ body{
     width: 100%;
 } */
 
+#allCharacters, #enemiesAvailable {
+    cursor: pointer;
+}
+
 #allCharacters {
     width: fit-content;
     height: 175px;

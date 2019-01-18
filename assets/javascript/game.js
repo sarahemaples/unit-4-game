@@ -36,7 +36,6 @@ function Character(firstName, health, attackPower, counterPower, srcImg, updated
     //another boolean for the attack button
     var firstAttack = true;
 
-    $("#restartBtn").hide();
 
 
 function newGame(){
