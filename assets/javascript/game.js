@@ -36,6 +36,8 @@ function Character(firstName, health, attackPower, counterPower, srcImg, updated
     //another boolean for the attack button
     var firstAttack = true;
 
+    $("#restartBtn").hide();
+
 
 function newGame(){
 
@@ -259,7 +261,7 @@ function updateMainCharAttack(mc){
 }
 
 //on click function which calls the pickPlayer
-$(".characterCards").on("click",  function(e){
+$("#allCharacters, #enemiesAvailable").on("click", ".characterCards",  function(e){
     console.log('clicked!');
     console.log(e);
     pickPlayer(e.currentTarget);
